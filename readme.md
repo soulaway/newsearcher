@@ -1,6 +1,6 @@
-# cassolr
+# newsearcher
 
-Client example web-app using Apache Cassandra and Apache Solr with Spring and Docker
+Test Sring web-app, searches articles using Apache Cassandra and Apache Solr.
 
 #how to setup and run
 
@@ -14,13 +14,13 @@ Client example web-app using Apache Cassandra and Apache Solr with Spring and Do
 
 > docker run --name casdb3 -d -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' casdb)" cassandra:2.2.7
 
-- building Solr image with configured **names** core, execute from "cassolr" workspace
+- building Solr image with configured **articles** core, execute from "newsearcher" workspace
 
-> docker build -t "solrnames" .
+> docker build -t "solrnews" .
 
-- launching **solrnames** with linkage to Cassandra DB
+- launching **solrnews** with linkage to Cassandra DB
 
-> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solrnames
+> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solrnews
 
 * run Names application
 

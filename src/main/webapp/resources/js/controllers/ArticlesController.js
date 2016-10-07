@@ -1,24 +1,24 @@
 'use strict';
 
-var NameDirectoryController = function($scope, $http) {
-    $scope.names = {};
+var ArticlesController = function($scope, $http) {
+    $scope.articles = {};
     $scope.typeaheadNames = {};
 
     $scope.fetchNamesList = function() {
-        $http.get('names/getList.json').success(function(list){
+        $http.get('articles/getList.json').success(function(list){
             $scope.names = list;
             $scope.search = '';
         });
     };
 
     $scope.searchNamesList = function(text) {
-        $http.post('names/search.json', text).success(function(list){
+        $http.post('articles/search.json', text).success(function(list){
             $scope.names = list;
         });
     };
 
     $scope.autocompleteNames = function(text){
-        $http.post('names/autocomplete.json', text).success(function(list){
+        $http.post('articles/autocomplete.json', text).success(function(list){
             $scope.typeaheadNames = list;
         });
     };
@@ -26,7 +26,7 @@ var NameDirectoryController = function($scope, $http) {
     $scope.addNewName = function(newItem) {
         $scope.resetError();
 
-        $http.post('names/add', newItem).success(function() {
+        $http.post('articles/add', newItem).success(function() {
             $scope.fetchNamesList();
             $scope.name.firstName = '';
             $scope.name.lastName = '';
@@ -38,10 +38,10 @@ var NameDirectoryController = function($scope, $http) {
     $scope.removeName = function(id) {
         $scope.resetError();
 
-        $http.delete('names/remove/' + id).success(function() {
+        $http.delete('articles/remove/' + id).success(function() {
             $scope.fetchNamesList();
         }).error(function() {
-            $scope.setError('Could not remove name');
+            $scope.setError('Could not remove article');
         });
         $scope.name.firstName = '';
         $scope.name.lastName = '';
@@ -50,10 +50,10 @@ var NameDirectoryController = function($scope, $http) {
     $scope.removeAllNames = function() {
         $scope.resetError();
 
-        $http.delete('names/removeAll').success(function() {
+        $http.delete('articles/removeAll').success(function() {
             $scope.fetchNamesList();
         }).error(function() {
-            $scope.setError('Could not remove all names');
+            $scope.setError('Could not remove all articles');
         });
     };
 

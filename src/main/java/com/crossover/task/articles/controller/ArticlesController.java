@@ -1,7 +1,7 @@
 package com.crossover.task.articles.controller;
 
-import com.crossover.task.articles.model.NameDirectorySolr;
-import com.crossover.task.articles.service.NameDirectoryService;
+import com.crossover.task.articles.model.SolrArticle;
+import com.crossover.task.articles.service.SolrArticlesService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.solr.core.SolrTemplate;
@@ -24,30 +24,30 @@ import java.util.List;
  * @since 25/09/2016
  */
 @Controller
-@RequestMapping("/names")
-public class NameDirectoryController {
+@RequestMapping("/articles")
+public class ArticlesController {
     @Autowired
-    private NameDirectoryService nameDirectoryService;
+    private SolrArticlesService solrArticlesService;
 
     @Autowired
     private SolrTemplate solrTemplate;
 
     @RequestMapping("/getList.json")
     @ResponseBody
-    public List<NameDirectorySolr> getList() {
-        return nameDirectoryService.getAllRows();
+    public List<SolrArticle> getList() {
+        return solrArticlesService.getAll();
     }
 
     @RequestMapping(value = "/search.json", method = RequestMethod.POST)
     @ResponseBody
-    public List<NameDirectorySolr> doSearch(@RequestBody String text) {
+    public List<SolrArticle> doSearch(@RequestBody String text) {
         if (StringUtils.isEmpty(text) || solrTemplate == null) {
             return this.getList();
         }
 
         String queryString = String.format("firstName:*%s* OR lastName:*%s*", text, text);
         Query query = new SimpleQuery(new SimpleStringCriteria(queryString));
-        return solrTemplate.queryForPage(query, NameDirectorySolr.class).getContent();
+        return solrTemplate.queryForPage(query, SolrArticle.class).getContent();
     }
 
     @RequestMapping(value = "/autocomplete.json", method = RequestMethod.POST)
@@ -59,10 +59,10 @@ public class NameDirectoryController {
 
         String queryString = String.format("firstName:*%s*", text);
         Query query = new SimpleQuery(new SimpleStringCriteria(queryString));
-        List<NameDirectorySolr> content = solrTemplate.queryForPage(query, NameDirectorySolr.class).getContent();
+        List<SolrArticle> content = solrTemplate.queryForPage(query, SolrArticle.class).getContent();
         List<String> result = new ArrayList<String>();
 
-        for (NameDirectorySolr nd : content) {
+        for (SolrArticle nd : content) {
             result.add(nd.getFirstName());
         }
         return result;
@@ -70,9 +70,9 @@ public class NameDirectoryController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public void add(@RequestBody NameDirectorySolr nd) {
-        Long id = nameDirectoryService.addNameDirectory(nd);
-        NameDirectorySolr saved = nameDirectoryService.getById(id);
+    public void add(@RequestBody SolrArticle nd) {
+        Long id = solrArticlesService.add(nd);
+        SolrArticle saved = solrArticlesService.getById(id);
 
         if (this.isUseSolr()) {
             solrTemplate.saveBean(saved);
@@ -83,7 +83,7 @@ public class NameDirectoryController {
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void remove(@PathVariable("id") Long id) {
-        nameDirectoryService.deleteNameDirectoryById(id);
+        solrArticlesService.delete(id);
 
         if (this.isUseSolr()) {
             solrTemplate.deleteById(String.valueOf(id));
@@ -94,20 +94,22 @@ public class NameDirectoryController {
     @RequestMapping(value = "/removeAll", method = RequestMethod.DELETE)
     @ResponseBody
     public void removeAll() {
-        nameDirectoryService.deleteAll();
+        solrArticlesService.deleteAll();
 
         if (this.isUseSolr()) {
             solrTemplate.delete(new SimpleQuery(new SimpleStringCriteria("*:*")));
             solrTemplate.commit();
         }
     }
-
+    
+    // Layouts may separate UI for company and user
+    
     @RequestMapping("/layout")
     public String getPartialPage() {
         if (this.isUseSolr()) {
-            return "namedirectory/layout_search";
+            return "articles/layout_search";
         }
-        return "namedirectory/layout";
+        return "articles/layout";
     }
 
     protected boolean isUseSolr() {

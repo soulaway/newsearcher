@@ -6,10 +6,10 @@ var App = angular.module('AngularSpringApp', ['ngRoute', 'autocomplete', 'Angula
 
 // Declare app level module which depends on filters, and services
 App.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/names', {
-        templateUrl: 'names/layout',
-        controller: NameDirectoryController
+    $routeProvider.when('/articles', {
+        templateUrl: 'articles/layout',
+        controller: ArticlesController
     });
 
-    $routeProvider.otherwise({redirectTo: '/names'});
+    $routeProvider.otherwise({redirectTo: '/articles'});
 }]);

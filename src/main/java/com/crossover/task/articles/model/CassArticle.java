@@ -10,11 +10,11 @@ import com.datastax.driver.core.DataType;
  * @since 25/09/2016
  */
 @Table
-public class NameDirectoryNoSQL extends NameDirectorySolr {
-    public NameDirectoryNoSQL() {
+public class CassArticle extends SolrArticle {
+    public CassArticle() {
     }
 
-    public NameDirectoryNoSQL(NameDirectorySolr from) {
+    public CassArticle(SolrArticle from) {
         super(from);
     }
 

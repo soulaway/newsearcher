@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 
-import com.crossover.task.articles.model.NameDirectoryNoSQL;
+import com.crossover.task.articles.model.CassArticle;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
@@ -78,9 +78,9 @@ public class CassandraConfig {
 			session.execute(createKeySpace);
 			session.execute(useKeySpace);
 			String queryCreateTable = String.format(createTable,
-					NameDirectoryNoSQL.class.getSimpleName().toLowerCase());
+					CassArticle.class.getSimpleName().toLowerCase());
 			String queryCreateIndex = String.format(createIndex,
-					NameDirectoryNoSQL.class.getSimpleName().toLowerCase());
+					CassArticle.class.getSimpleName().toLowerCase());
 			log.info("createKeySpace " + createKeySpace);
 			log.info("useKeySpace " + useKeySpace);			
 			log.info("queryCreateTable " + queryCreateTable);

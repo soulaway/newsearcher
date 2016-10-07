@@ -8,12 +8,12 @@ import java.util.Date;
 /**
  * @since 25/09/2016
  */
-@SolrDocument(solrCoreName = "names")
-public class NameDirectorySolr {
-    public NameDirectorySolr() {
+@SolrDocument(solrCoreName = "articles")
+public class SolrArticle {
+    public SolrArticle() {
     }
 
-    public NameDirectorySolr(NameDirectorySolr from) {
+    public SolrArticle(SolrArticle from) {
         this.id = from.id;
         this.firstName = from.firstName;
         this.lastName = from.lastName;

@@ -5,7 +5,7 @@
 	<artifactId>newsearcher</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Cassandra Solr WebApp</name>
+	<name>News Searcher WebApp</name>
 	<url>http://crossover.com</url>
 	<contributors>
 		<contributor>

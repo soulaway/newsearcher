@@ -28,6 +28,7 @@ public class SolrConfig {
     public SolrTemplate solrTemplate() throws Exception {
         return new SolrTemplate(solrServerFactoryBean().getObject());
     }
+    
 	@Bean
 	public HttpSolrServerFactoryBean solrServerFactoryBean() {
 		HttpSolrServerFactoryBean factory = new HttpSolrServerFactoryBean();

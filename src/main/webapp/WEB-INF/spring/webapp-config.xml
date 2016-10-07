@@ -12,7 +12,7 @@
 
 	<context:property-placeholder location="classpath:props/newsearcher.properties" />
 
-	<bean id="nameDirectoryService" class="com.crossover.task.articles.service.NameDirectoryServiceImpl"/>
+	<bean id="solrService" class="com.crossover.task.articles.service.SolrArticlesServiceImpl"/>
 
 	<bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">

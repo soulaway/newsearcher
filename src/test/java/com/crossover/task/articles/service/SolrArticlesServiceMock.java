@@ -1,7 +1,7 @@
 package com.crossover.task.articles.service;
 
-import com.crossover.task.articles.model.NameDirectorySolr;
-import com.crossover.task.articles.service.NameDirectoryService;
+import com.crossover.task.articles.model.SolrArticle;
+import com.crossover.task.articles.service.SolrArticlesService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,19 +10,19 @@ import java.util.List;
  * @since 25/09/2016
  */
 // TODO Move to tests
-//@Service("NameDirectoryService")
-public class NameDirectoryServiceMock implements NameDirectoryService {
-    private static List<NameDirectorySolr> rsList = new ArrayList<NameDirectorySolr>();
+//@Service("SolrArticlesService")
+public class SolrArticlesServiceMock implements SolrArticlesService {
+    private static List<SolrArticle> rsList = new ArrayList<SolrArticle>();
     private static Long id = 0L;
 
     @Override
-    public List<NameDirectorySolr> getAllRows() {
+    public List<SolrArticle> getAll() {
         return rsList;
     }
 
     @Override
-    public NameDirectorySolr getById(Long id) {
-        for (NameDirectorySolr nd : rsList) {
+    public SolrArticle getById(Long id) {
+        for (SolrArticle nd : rsList) {
             if (id.equals(nd.getId())) {
                 return nd;
             }
@@ -32,15 +32,15 @@ public class NameDirectoryServiceMock implements NameDirectoryService {
     }
 
     @Override
-    public Long addNameDirectory(NameDirectorySolr nd) {
+    public Long add(SolrArticle nd) {
         nd.setId(++id);
         rsList.add(nd);
         return id;
     }
 
     @Override
-    public void deleteNameDirectoryById(Long id) {
-        NameDirectorySolr found = findRowById(id);
+    public void delete(Long id) {
+        SolrArticle found = findRowById(id);
         if (found != null) {
             rsList.remove(found);
         }
@@ -52,8 +52,8 @@ public class NameDirectoryServiceMock implements NameDirectoryService {
         id = 0L;
     }
 
-    private NameDirectorySolr findRowById(Long id) {
-        for (NameDirectorySolr rs : rsList) {
+    private SolrArticle findRowById(Long id) {
+        for (SolrArticle rs : rsList) {
             if (rs.getId().equals(id)) {
                 return rs;
             }
