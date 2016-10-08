@@ -1,0 +1,36 @@
+<div class="modal-dialog">
+	<div class="loginmodal-container">
+		<div class="alert alert-error" ng-show="error">
+		    {{errorMessage}}
+		</div>
+		<h1>Login to Your Account</h1>
+		<br>
+
+		<form class="form-vertical">
+		    <div class="control-group">
+		        <label class="control-label" for="inputEmail">User name</label>
+		        <div class="controls">
+		            <input type="text" id="uname" ng-model="user.user" placeholder="User name" required min="2">
+		        </div>
+		    </div>
+		    <div class="control-group">
+		        <label class="control-label" for="inputEmail">Password</label>
+		        <div class="controls">
+		            <input type="password" id="upass" ng-model="user.pass" placeholder="Password" required min="6">
+		        </div>
+		    </div>
+		    <div class="control-group">
+		        <hr />
+		        <div class="controls">
+		            <button type="submit" class="btn btn-primary" ng-disabled="!user.user || !user.pass" ng-hide="editMode" ng-click="login(user)">Login</button>
+		            <button type="button" class="btn" ng-click="resetLoginForm()">Reset</button>
+		        </div>
+		    </div>
+		</form>
+
+
+		<div class="login-help">
+			<a href="#">Register</a> - <a href="#">Forgot Password</a>
+		</div>
+	</div>
+</div>

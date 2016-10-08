@@ -9,7 +9,10 @@ App.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/articles', {
         templateUrl: 'articles/layout',
         controller: ArticlesController
+    }).when('/login',{
+    	templateUrl: 'login',
+    	controller: LoginController
     });
 
-    $routeProvider.otherwise({redirectTo: '/articles'});
+    $routeProvider.otherwise({redirectTo: '/login'});
 }]);
