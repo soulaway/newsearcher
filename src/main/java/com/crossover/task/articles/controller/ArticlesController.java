@@ -45,7 +45,7 @@ public class ArticlesController {
             return this.getList();
         }
 
-        String queryString = String.format("firstName:*%s* OR lastName:*%s*", text, text);
+        String queryString = String.format("title:*%s* OR body:*%s*", text, text);
         Query query = new SimpleQuery(new SimpleStringCriteria(queryString));
         return solrTemplate.queryForPage(query, SolrArticle.class).getContent();
     }
@@ -57,13 +57,13 @@ public class ArticlesController {
             return Collections.emptyList();
         }
 
-        String queryString = String.format("firstName:*%s*", text);
+        String queryString = String.format("title:*%s*", text);
         Query query = new SimpleQuery(new SimpleStringCriteria(queryString));
         List<SolrArticle> content = solrTemplate.queryForPage(query, SolrArticle.class).getContent();
         List<String> result = new ArrayList<String>();
 
         for (SolrArticle nd : content) {
-            result.add(nd.getFirstName());
+            result.add(nd.getTitle());
         }
         return result;
     }

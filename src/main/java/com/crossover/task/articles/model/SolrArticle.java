@@ -15,8 +15,8 @@ public class SolrArticle {
 
     public SolrArticle(SolrArticle from) {
         this.id = from.id;
-        this.firstName = from.firstName;
-        this.lastName = from.lastName;
+        this.title = from.title;
+        this.body = from.body;
         this.createdTimestamp = from.createdTimestamp;
     }
 
@@ -24,10 +24,10 @@ public class SolrArticle {
     private Long id;
 
     @Indexed
-    private String firstName;
+    private String title;
 
     @Indexed
-    private String lastName;
+    private String body;
 
     private Date createdTimestamp;
 
@@ -39,23 +39,23 @@ public class SolrArticle {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public String getTitle() {
+		return title;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getBody() {
+		return body;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setBody(String body) {
+		this.body = body;
+	}
 
-    public Date getCreatedTimestamp() {
+	public Date getCreatedTimestamp() {
         return createdTimestamp;
     }
 

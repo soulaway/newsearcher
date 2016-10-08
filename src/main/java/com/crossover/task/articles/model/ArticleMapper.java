@@ -18,8 +18,8 @@ public class ArticleMapper implements RowMapper<SolrArticle> {
 			public SolrArticle extractData(ResultSet resultSet) throws SQLException, DataAccessException {
 	            SolrArticle a = new SolrArticle();
 	            a.setId(resultSet.getLong("id"));
-	            a.setFirstName(resultSet.getString("firstName"));
-	            a.setLastName(resultSet.getString("lastName"));
+	            a.setTitle(resultSet.getString("title"));
+	            a.setBody(resultSet.getString("body"));
 	            a.setCreatedTimestamp(resultSet.getTimestamp("createdTimestamp"));
 	            return a;
 			}

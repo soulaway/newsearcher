@@ -6,7 +6,7 @@
         <label class="control-label" for="inputEmail">First Name</label>
 
         <div class="controls">
-            <input type="text" id="inputEmail" ng-model="name.firstName" placeholder="First Name" required min="2">
+            <input type="text" id="inputEmail" ng-model="name.title" placeholder="First Name" required min="2">
         </div>
     </div>
     <div class="control-group">
@@ -15,13 +15,13 @@
         <div class="controls">
 
 
-            <input class="span3" type="text" id="inputSpeed" ng-model="name.lastName" placeholder="Last Name" required min="1">
+            <input class="span3" type="text" id="inputSpeed" ng-model="name.body" placeholder="Last Name" required min="1">
         </div>
     </div>
     <div class="control-group">
         <hr />
         <div class="controls">
-            <button type="button" class="btn btn-primary" ng-disabled="!name.firstName || !name.lastName" ng-hide="editMode" ng-click="addNewName(name)">Add Name</button>
+            <button type="button" class="btn btn-primary" ng-disabled="!name.title || !name.body" ng-hide="editMode" ng-click="addNewName(name)">Add Name</button>
             <button type="button" class="btn" ng-click="resetNamesForm()">Reset</button>
         </div>
     </div>
@@ -47,8 +47,8 @@
     <tbody>
     <tr ng-repeat="name in names | orderBy:predicate">
         <td style="text-align: center;">{{name.id}}</td>
-        <td>{{name.firstName}}</td>
-        <td>{{name.lastName}}</td>
+        <td>{{name.title}}</td>
+        <td>{{name.body}}</td>
         <td style="width:100px;text-align: center;">
             <button class="btn btn-mini btn-danger" ng-click="removeName(name.id)">Remove</button>
         </td>

@@ -28,8 +28,8 @@ var ArticlesController = function($scope, $http) {
 
         $http.post('articles/add', newItem).success(function() {
             $scope.fetchNamesList();
-            $scope.name.firstName = '';
-            $scope.name.lastName = '';
+            $scope.name.title = '';
+            $scope.name.body = '';
         }).error(function() {
             $scope.setError('Could not add a new name');
         });
@@ -43,8 +43,8 @@ var ArticlesController = function($scope, $http) {
         }).error(function() {
             $scope.setError('Could not remove article');
         });
-        $scope.name.firstName = '';
-        $scope.name.lastName = '';
+        $scope.name.title = '';
+        $scope.name.body = '';
     };
 
     $scope.removeAllNames = function() {
