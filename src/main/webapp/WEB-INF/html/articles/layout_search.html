@@ -3,44 +3,40 @@
 </div>
 <form class="form-horizontal">
     <div class="control-group">
-        <label class="control-label" for="inputEmail">First Name</label>
-
+        <label class="control-label" for="inputEmail">Title</label>
         <div class="controls">
-            <input type="text" id="inputEmail" ng-model="name.title" placeholder="First Name" required min="2">
+            <input type="text" id="inputEmail" ng-model="name.title" placeholder="Title" required min="2">
         </div>
     </div>
     <div class="control-group">
-        <label class="control-label" for="inputEmail">Last Name</label>
-
+        <label class="control-label" for="inputEmail">Body</label>
         <div class="controls">
-
-
-            <input class="span3" type="text" id="inputSpeed" ng-model="name.body" placeholder="Last Name" required min="1">
+            <input class="span3" type="text" id="inputSpeed" ng-model="name.body" placeholder="Body" required min="1">
         </div>
     </div>
     <div class="control-group">
         <hr />
         <div class="controls">
-            <button type="button" class="btn btn-primary" ng-disabled="!name.title || !name.body" ng-hide="editMode" ng-click="addNewName(name)">Add Name</button>
+            <button type="button" class="btn btn-primary" ng-disabled="!name.title || !name.body" ng-hide="editMode" ng-click="addNewName(name)">Add Article</button>
             <button type="button" class="btn" ng-click="resetNamesForm()">Reset</button>
         </div>
     </div>
 </form>
 <hr />
 
-<h3>Name Directory</h3>
+<h3>Article Directory</h3>
 <autocomplete ng-model="search" data="typeaheadNames" on-type="autocompleteNames" on-select="alert(search)"></autocomplete>
 <button type="button" class="btn" ng-click="searchNamesList(search)" style="margin-bottom: 10px">Search</button>
 
 <div class="alert alert-info" ng-show="names.length == 0">
-    No names found
+    No articles found
 </div>
 <table class="table table-bordered table-striped" ng-show="names.length > 0">
     <thead>
     <tr>
         <th style="text-align: center; width: 25px;">Id</th>
-        <th style="text-align: center;">First Name</th>
-        <th style="text-align: center;">Last Name</th>
+        <th style="text-align: center;">Title</th>
+        <th style="text-align: center;">Body</th>
         <th style="text-align: center;">Action</th>
     </tr>
     </thead>
@@ -55,4 +51,4 @@
     </tr>
     </tbody>
 </table>
-<button class="btn btn-danger" ng-show="names.length > 1 && search.length == 0" ng-click="removeAllNames()">Remove All Names</button>
+<button class="btn btn-danger" ng-show="names.length > 1 && search.length == 0" ng-click="removeAllNames()">Remove All Articles</button>
