@@ -1,4 +1,4 @@
-# newsearcher
+# News Searcher
 
 Test web-app with full text search by Articles using Apache Cassandra and Apache Solr.
 
@@ -7,7 +7,7 @@ AngularJS as a front-end MVW. Spring Web MVC and Apache Velocity at back-end.
 Spring data cassandra/solr (templates) a as persistence providers.
 
 using Maven and Docker 
-#how to setup and run
+#3 steps to setup and run
 
 * To install the default instance of Apache Cassandra we could pull docker image and launch it exposing name *casdb* and ports
 
@@ -21,7 +21,9 @@ using Maven and Docker
 
 > docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solr solr-create -c articles
 
-* run Names application
+command above might take some time (~20 sec.), check <http://localhost:8983/solr/> do have *articles* core available before proceeding.
+
+* run News Searcher application
 
 > mvn clean install jetty:run
 
