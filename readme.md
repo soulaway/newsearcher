@@ -1,80 +1,77 @@
 # newsearcher
 
-Test Sring web-app, searches articles using Apache Cassandra and Apache Solr.
+Test web-app with full text search by Articles using Apache Cassandra and Apache Solr.
 
+AngularJS as a front-end MVW. Spring Web MVC and Apache Velocity at back-end.
+
+Spring data cassandra/solr (templates) a as persistence providers.
+
+using Maven and Docker 
 #how to setup and run
 
-- launching Apache Cassandra DB cluster (single docker VM)
+* To install the default instance of Apache Cassandra we could pull docker image and launch it exposing name *casdb* and ports
 
 > docker pull cassandra:2.2.7
 
 > docker run --name casdb -p 127.0.0.1:9042:9042 -p 127.0.0.1:9160:9160 -d cassandra:2.2.7
 
-> docker run --name casdb2 -d -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' casdb)" cassandra:2.2.7
+* To install the default Apache Solr we may pull docker image, launch it exposing name *solrsearch* and port and create core *articles* used by app
 
-> docker run --name casdb3 -d -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' casdb)" cassandra:2.2.7
+> docker pull solr
 
-- building Solr image with configured **articles** core, execute from "newsearcher" workspace
-
-> docker build -t "solrnews" .
-
-- launching **solrnews** with linkage to Cassandra DB
-
-> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solrnews
+> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solr solr-create -c articles
 
 * run Names application
 
-> mvn clean install jetty:run -Dcassandra_url=127.0.0.1:9042/casdb -Dsolr_host=127.0.0.1 -Dsolr_port=8983
+> mvn clean install jetty:run
 
 #useful bash
 
-* using docker to pull/run cassandra image, Spring works only with v 2.x
-
->> docker pull cassandra:2.2.7
-
->> docker run --name casdb -p 127.0.0.1:9042:9042 -p 127.0.0.1:9160:9160 -d cassandra:2.2.7
+** cassandra **
 
 * check cassandra connection ready
 
 >> telnet 127.0.0.1 9160
 
+* launch cassandra cluster (single docker vm)
+
+>> docker run --name casdb1 -d -p 127.0.0.1:9042:9042 -p 127.0.0.1:9160:9160 cassandra:2.2.7
+
+>> docker run --name casdb2 -d -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' casdb)" cassandra:2.2.7
+
+>> docker run --name casdb3 -d -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' casdb)" cassandra:2.2.7
+
 * stop cassandra by name
 
 >> docker ps -a -q --filter="name=casdb"
 
-* using docker to pull/run solr image
+** solr **
 
->> docker pull solr
+* building Solr image with configured **articles** core (execute from the Dockerfile location)
 
->> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra solr
+>> docker build -t "solrnews" .
 
 * print solr file structure
 
 >> docker exec -i -t --privileged solrsearch ls -R
 
-* modify docker solr add config
+* unzip solr core on to docker container (execute from the articles.zip location)
 
->> cd /{workspace}/cassolr/
+>> unzip -q articles.zip && docker cp articles solrsearch:/opt/solr/server/solr/ && rm -r articles
 
->> docker build -t "solrnames" .
+* copy archive and unzip it on docker container (execute from the articles.zip location)
 
->> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra solrnames
+>> docker cp articles.zip solrsearch:/opt/solr/server/solr/
 
-* check *solr* connection ready
+>> docker exec -i solrsearch unzip -q /opt/solr/server/solr/articles.zip -d /opt/solr/server/solr/
 
->> telnet 127.0.0.1 8983
+* check *solr* web UI
 
-* or acess *solr* web ui
-
->> here <http://localhost:8983/solr/>
+>> at <http://localhost:8983/solr/>
 
 * force stop all running docker images (make shure you dont have **\** inside command)
 
 >> docker rm -f \`docker ps --no-trunc -aq\`
-
-* run Names application
-
->> mvn clean install jetty:run
 
 #references:
 Cassandra docker repository <https://hub.docker.com/_/cassandra/>
