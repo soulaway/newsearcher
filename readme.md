@@ -9,19 +9,19 @@ Spring data cassandra/solr (templates) a as persistence providers.
 using Maven and Docker 
 #3 steps to setup and run
 
-* To install the default instance of Apache Cassandra we could pull docker image and launch it exposing name *casdb* and ports
+* To install the default instance of Apache Cassandra we may pull docker image and launch it exposing name *casdb* and ports
 
 > docker pull cassandra:2.2.7
 
 > docker run --name casdb -p 127.0.0.1:9042:9042 -p 127.0.0.1:9160:9160 -d cassandra:2.2.7
 
-* To install the default Apache Solr we may pull docker image, launch it exposing name *solrsearch* and port and create core *articles* used by app
+* To install the default instance of Apache Solr we may pull base docker image, build an image with *articles* core inside, and then launch it linking to Cassandra and exposing name *solrsearch* and port (step 2 have to be executed from the Dockerfile location)
 
 > docker pull solr
 
-> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solr solr-create -c articles
+> docker build -t "solrnews" .
 
-command above might take some time (~20 sec.), check <http://localhost:8983/solr/> do have *articles* core available before proceeding.
+> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solrnews
 
 * run News Searcher application
 
@@ -48,6 +48,9 @@ command above might take some time (~20 sec.), check <http://localhost:8983/solr
 >> docker ps -a -q --filter="name=casdb"
 
 ** solr **
+* launching an instance with creating a core first (command below might take some time (~20 sec.), check <http://localhost:8983/solr/> do have *articles* core available before proceeding.)
+
+>> docker run -p 8983:8983 --name solrsearch --link casdb:cassandra -d solr solr-create -c articles
 
 * building Solr image with configured **articles** core (execute from the Dockerfile location)
 
