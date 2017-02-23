@@ -86,5 +86,3 @@ Solr docker repository <https://hub.docker.com/_/solr/>
 Solr cloud wiki <https://cwiki.apache.org/confluence/display/solr/Getting+Started+with+SolrCloud>
 
 Solr cluster <https://github.com/docker-solr/docker-solr/blob/master/docs/docker-networking.md>
-
-Source project repository <https://github.com/dchqinc/dchq-docker-java-solr-mongo-cassandra-example>
