@@ -152,7 +152,7 @@
 		</plugins>
 	</build>
 	<properties>
-		<spring.version>3.2.15.RELEASE</spring.version>
+		<spring.version>5.2.20.RELEASE</spring.version>
 		<jetty9.version>9.2.14.v20151106</jetty9.version>
 	</properties>
 </project>
